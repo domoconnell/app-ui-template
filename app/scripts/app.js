@@ -12,10 +12,6 @@
 	require('moment');
 	require('angular-moment');
 	
-	require('../modules/Login/Login.module');
-	require('../modules/PasswordReset/PasswordReset.module');
-	require('../modules/UserApplication/UserApplication.module');
-
 	var app = angular.module('App', [
 		'ui.router',
 		'angular-jwt',
