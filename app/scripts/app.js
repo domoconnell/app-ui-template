@@ -40,9 +40,23 @@
 			}
 		};
 	})
-	.config(['$httpProvider', 'jwtInterceptorProvider', '$stateProvider', 'restmodProvider', function Config($httpProvider, jwtInterceptorProvider, $stateProvider, restmodProvider) {
-		$httpProvider.interceptors.push('ApiUrlInterceptor');
+	.run(['$rootScope', '$state', function($rootScope, $state){
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+			if(toState.name=='Redirect'){
+				event.preventDefault();
+				$state.go('Welcome');
+				return false;
+			}
+		});
+	}])
+	.config(['$httpProvider', 'jwtInterceptorProvider', '$stateProvider', 'restmodProvider', '$urlRouterProvider', function Config($httpProvider, jwtInterceptorProvider, $stateProvider, restmodProvider, $urlRouterProvider) {
 		restmodProvider.rebase('AMSApi');
+		$httpProvider
+			.interceptors.push('ApiUrlInterceptor');
+		$stateProvider
+			.state('Redirect', { url:'' })
+		;
+		$urlRouterProvider.otherwise('/welcome');
 	}]);
 
 
