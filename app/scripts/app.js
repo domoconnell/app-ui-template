@@ -25,5 +25,26 @@
 		'ngAria',
 		'ngMaterial'
 	])
-	
+	.factory('ApiUrlInterceptor', function () {
+		return {
+			request: function (config) {
+				var urlParts = config.url.split('/');
+				var firstSection = config.url.split('/')[1];
+				if(firstSection=='api'){
+					//means we're like this
+					// api/dashboard/test
+					urlParts.shift();
+					urlParts.shift();
+					config.url = 'http://server.com/api/' + urlParts.join('/');
+				}
+				return config;
+			}
+		};
+	})
+	.config(['$httpProvider', 'jwtInterceptorProvider', '$stateProvider', 'restmodProvider', function Config($httpProvider, jwtInterceptorProvider, $stateProvider, restmodProvider) {
+		$httpProvider.interceptors.push('ApiUrlInterceptor');
+		restmodProvider.rebase('AMSApi');
+	}]);
+
+
 })();
