@@ -1,1 +1,6 @@
-# app-ui-template
+# Simple UI Start Pack
+
+```
+$ npm install
+$ bower install
+$ gulp
