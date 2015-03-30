@@ -12,6 +12,8 @@
 	require('moment');
 	require('angular-moment');
 	
+	require('../modules/Welcome/Welcome.module');
+
 	var app = angular.module('App', [
 		'ui.router',
 		'angular-jwt',
@@ -19,7 +21,8 @@
 		'restmod',
 		'ngAnimate',
 		'ngAria',
-		'ngMaterial'
+		'ngMaterial',
+		'App.Welcome'
 	])
 	.factory('ApiUrlInterceptor', function () {
 		return {
