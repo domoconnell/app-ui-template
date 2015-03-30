@@ -63,7 +63,7 @@ gulp.task('browserify', function() {
 			insertGlobals: true,
 			debug: true
 		}))
-	.pipe(concat('bundle.js'))
+	.pipe(concat('app.min.js'))
 	.pipe(gulp.dest('./app/scripts'))
 });
 
@@ -71,7 +71,7 @@ gulp.task('browserify', function() {
 gulp.task('browserifyDist', function() {
   return browserify('./app/scripts/app.js')
     .bundle()
-    .pipe(source('bundle.js'))
+    .pipe(source('app.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest('./build/scripts'));
@@ -91,7 +91,7 @@ gulp.task('browserifyWatch', function () {
 
 		function rebundle() {
 			return bundler.bundle()
-				.pipe(source('app.js'))
+				.pipe(source('app.min.js'))
 				.pipe(gulp.dest('./app/scripts'))
 				//.pipe(livereload());
 		}
@@ -145,7 +145,7 @@ gulp.task('connectBuild', function () {
 gulp.task('watch', function () {
   	gulp.watch('app/less/**/*.less',['less']);
 	gulp.watch('app/**/*.jade',['templates']);
-	gulp.watch('app/scripts/app.js', notifyLiveReload);
+	gulp.watch('app/scripts/app.min.js', notifyLiveReload);
 	gulp.watch('app/**/*.html', notifyLiveReload);
 	gulp.watch('app/styles/app.css', notifyLiveReload);
 });
